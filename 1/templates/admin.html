@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="static/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="static/admin.js"></script>
+	<link rel="stylesheet" href="static/admin.css" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<base target="iframe"/>
+	<title>树洞后台管理</title>
+</head>
+<body>
+	<div id="top">
+
+		<div class="exit">
+			<form method="POST" action="/admin">
+				<input type="submit" value="退出" />
+			</form>
+		</div>
+	</div>
+	<div id="left">
+		<dl>
+			<dt>树洞消息管理</dt>
+			<dd><a href="/adminarticle">树洞消息管理</a></dd>
+		</dl>
+		<dl>
+			<dt>招聘管理</dt>
+			<dd><a href="/adminjobs">招聘消息</a></dd>
+			<dd><a href="/jobsentry">招聘管理</a></dd>
+		</dl>
+		<dl>
+			<dt>树洞表白墙管理</dt>
+			<dd><a href="/adminexpress">树洞表白墙管理</a></dd>
+		</dl>
+		<dl>
+			<dt>树洞寻物启事管理</dt>
+			<dd><a href="/adminfind">树洞寻物启事管理</a></dd>
+		</dl>
+	</div>
+	<div id="right">
+		<iframe id="right_iframe" name="iframe" src=""></iframe>
+	</div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+# coding: UTF-8
+import os
+import web
+import sae
+import urlparse
+import hashlib
+from bs4 import BeautifulSoup
+import sae.const
+import web
+import time, datetime
+import threading
+import sae.storage
+import urllib
+        
+urls = (
+    '/', 'Hello',
+    '/message/?','Message',
+    '/article','Article'
+)
+web.config.debug = False
+
+#App token for Auth
+TOKEN = "383a553sv8s8027SU1";
+
+app_root = os.path.dirname(__file__)
+templates_root = os.path.join(app_root, 'templates')
+render = web.template.render(templates_root)
+db = web.database(dbn='mysql', user=sae.const.MYSQL_USER, pw=sae.const.MYSQL_PASS, db=sae.const.MYSQL_DB,host=sae.const.MYSQL_HOST, port = int(sae.const.MYSQL_PORT))
+
+class Hello:
+    def GET(self):
+        return render.hello()
+
+class Message:
+    def GET(self):
+        authdata = web.input()
+        WEsignature = authdata.signature
+        WEtimestamp = authdata.timestamp
+        WEnonce = authdata.nonce
+        WEechostr = authdata.echostr
+        #Sort By Dictionary order
+        SortedData = sorted([TOKEN,WEtimestamp,WEnonce])
+        SortedString = SortedData[0] + SortedData[1] + SortedData[2]
+        #Encode By Sha1
+        EncodeString = hashlib.sha1(SortedString).hexdigest()
+        if EncodeString == WEsignature:
+            return WEechostr
+        else:
+            return "Auth false"
+    def POST(self):
+        if self.authlink():
+            data = web.data()
+            message = BeautifulSoup(data)
+            #Parse Message
+            msg_to_user = message.tousername.text
+            msg_from_user = message.fromusername.text
+            msg_created_at = float(message.createtime.text)
+            msg_type = message.msgtype.text
+            reply_time = int(time.time())
+            web.header('Content-Type', 'text/xml')
+            if msg_type == 'text':
+                msg_id = message.msgid
+                msg_content = message.content.text
+                if msg_content.strip( ) == "1" or msg_content.lower() == "news":
+                    return self.response_news(msg_from_user,msg_to_user)
+                else:
+                  sequence_id = db.insert('jnmc_message', msg_to_user = msg_to_user , msg_from_user = msg_from_user ,msg_created_at = datetime.datetime.fromtimestamp(msg_created_at), msg_type = msg_type , msg_id = msg_id, msg_content = msg_content)
+                  reply_content = "树洞收到你的消息啦!你可以回复 1 查看最新的消息哟。"
+                  return render.reply(msg_from_user,msg_to_user, reply_time, reply_content)
+
+            elif msg_type == 'event':
+                if message.event.text == "subscribe":
+                    reply_content = "欢迎订阅济医树洞，直接回复消息即可投递（会匿名的哟），回复 1 可以查看他人投递."
+                    return render.reply(msg_from_user,msg_to_user, reply_time, reply_content)
+            elif msg_type == 'image':
+                msg_id = message.msgid
+                msg_img_url = message.picurl.text
+                #Save image
+                file = urllib.urlopen(msg_img_url).read()
+                s = sae.storage.Client()
+                ob = sae.storage.Object(file)
+                filename = str(msg_id) + '.jpg'
+                new_url = s.put('img', filename , ob)
+                sequence_id = db.insert('jnmc_message', msg_to_user = msg_to_user , msg_from_user = msg_from_user ,msg_created_at = datetime.datetime.fromtimestamp(msg_created_at), msg_type = msg_type , msg_id = msg_id, msg_img_url = new_url)
+                reply_content = "树洞收到你的图片啦!你可以回复 1 查看最新的消息哟。"
+                return render.reply(msg_from_user,msg_to_user, reply_time, reply_content)
+            elif msg_type == 'voice':
+                msg_id = message.msgid
+                mediaid = message.mediaid.text
+                media_format = message.format.text
+                reply_content = "又是语音消息啊，好吧，但是现在还不支持噢。但是~你可以回复 1 查看最新的消息哟。"
+                return render.reply(msg_from_user,msg_to_user, reply_time, reply_content)
+            else:
+                reply_content = "你所发的信息格式目前还不支持噢，树洞正在努力成长中。你可以回复 1 查看最新的消息哟。"
+                return render.reply(msg_from_user,msg_to_user, reply_time, reply_content)
+        
+    def authlink(self):
+        if  web.config.debug:
+            return True
+        authdata = web.input()
+        WEsignature = authdata.signature
+        WEtimestamp = authdata.timestamp
+        WEnonce = authdata.nonce
+        #Sort By Dictionary order
+        SortedData = sorted([TOKEN,WEtimestamp,WEnonce])
+        SortedString = SortedData[0] + SortedData[1] + SortedData[2]
+        #Encode By Sha1
+        EncodeString = hashlib.sha1(SortedString).hexdigest()
+        if EncodeString == WEsignature:
+            return True
+        else:
+            return False
+    def response_news(self, msg_from_user = None, msg_to_user = None):
+        web.header('Content-Type', 'text/xml')
+        messages = db.select('jnmc_message', limit=10, order="created_at DESC") 
+        reply_content = "树洞里的新鲜事 \n\n"
+        num = 1
+        for message in messages:
+            if message.msg_type == "text":
+                reply_content += str(num) + ". " + message.msg_content.encode('utf-8') + "\n" + str(message.msg_created_at) + "\n\n"
+                num += 1
+        link = "http://jnmcsecret.sinaapp.com/article"
+        reply_time = int(time.time())
+        return render.link(msg_from_user,msg_to_user, reply_time, reply_content, link)
+
+class Article: 
+    def GET(self):
+        messages = db.select('jnmc_message', limit=100, order="created_at DESC") 
+        current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        return render.article(messages, current_time)
+
+
+app = web.application(urls, globals()).wsgifunc()
+
+application = sae.create_wsgi_app(app)

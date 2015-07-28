@@ -1,0 +1,246 @@
+html,h3,body,ul,li,,form {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+background-color:#fffffb;
+}
+
+h3{
+margin-bottom:5px;
+
+}
+
+ul {
+padding: 0px;
+margin: 0px;
+}
+
+li{
+margin-left:0px;
+list-style-type: none;
+}
+
+li strong {
+float: left;
+margin-left:0px;
+margin-right: 5px;
+}
+
+.tag {
+margin-top:5px;
+margin-bottom:5px;
+font-size:12px;
+color: grey;
+}
+
+
+.message{
+float: left;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:2px 2px 5px #ccc;
+margin-left:0px;
+margin-right:0px;
+margin-bottom:10px;
+border:1px solid #ccc;
+width: 95%;
+}
+
+
+.message .content img{
+width:90%;
+margin-left:auto;
+margin-right:auto;
+}
+
+.message_job {
+float: left;
+width: 95%;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:2px 2px 5px #ccc;
+margin-bottom:10px;
+border:1px solid #ccc;
+}
+
+.message_job .content h2 {
+font-size:18px;
+margin-bottom:5px;
+margin-left: 5px;
+}
+
+.message_job .content p{
+margin-top:5px;
+margin-bottom:5px;
+font-size:12px;
+color: grey;
+}
+
+.content {
+    float: left;
+
+}
+
+
+/*招聘信息css*/
+#contact-form {
+    background-color:#F2F7F9;
+    width:465px;
+    padding:20px;
+    margin: 50px auto;    
+    border: 6px solid #8FB5C1;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+    border-radius:15px;
+    position:relative;
+}
+
+#contact-form h1 {
+    font-size:42px;
+}
+
+#contact-form h2 {
+    margin-bottom:15px;
+    font-style:italic;
+    font-weight:normal;
+}
+
+#contact-form input, 
+#contact-form select, 
+#contact-form textarea, 
+#contact-form label {
+    font-size:15px;
+    margin-bottom:2px;
+}
+
+#contact-form input, 
+#contact-form textarea {
+    width:450px;
+    border: 1px solid #CEE1E8;
+    margin-bottom:20px;
+    padding:4px;
+}
+
+#contact-form select {
+    width:450px;
+    border: 1px solid #CEE1E8;
+    padding:4px;
+}
+
+#contact-form input:focus, 
+#contact-form select:focus, 
+#contact-form textarea:focus {
+    border: 1px solid #AFCDD8;
+    background-color: #EBF2F4;
+}
+
+#contact-form textarea {
+    height:150px;
+    resize: none;
+}
+
+#contact-form label {
+    display:block;
+}
+
+#contact-form .required {
+    font-weight:bold;
+    color:#F00;    
+}
+
+#contact-form #submit-button {
+    width: 0; /* for IE only */
+    width: auto;
+    overflow: visible;
+    background-color:#333;
+    color:#FFF;
+    border:none;
+    display:block;
+    float:right;
+    margin-bottom:0px;
+    margin-right:6px;
+    background-color:#8FB5C1;
+    -moz-border-radius:8px;
+}
+
+#contact-form #submit-button:hover {
+    background-color: #A6CFDD;
+}
+
+#contact-form #submit-button:active {
+    position:relative;
+    top:1px;
+}
+
+#contact-form #close-button {
+    width: 0; /* for IE only */
+    width: auto;
+    overflow: visible;
+    background-color:#333;
+    color:#FFF;
+    border:none;
+    display:block;
+    float:right;
+    margin-bottom:0px;
+    margin-right:6px;
+    background-color:#8FB5C1;
+    -moz-border-radius:8px;
+}
+
+#contact-form #close-button:hover {
+    background-color: #A6CFDD;
+}
+
+#contact-form #close-button:active {
+    position:relative;
+    top:1px;
+}
+
+#contact-form #loading {
+    width:32px;
+    height:32px;
+    background-image:url(../img/loading.gif);
+    display:block;
+    position:absolute;
+    right:130px;
+    bottom:16px;
+    display:none;
+}
+
+#req-field-desc {
+    font-style:italic;
+}
+
+/**
+#delete {
+    display: block;
+    float: right;
+    height: 100%;
+    width: 5%;
+    border-radius: 0 10px 10px 0;
+    -moz-border-radius: 0 10px 10px 0;
+    -webkit-border-radius: 0 10px 10px 0;
+
+}
+*/
+
+#delete,#delete:visited {
+    float: right;
+    background: #000040;
+    display: block;
+    border: 0px;
+    padding: 5px 10px 6px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(0,0,64,0.25);
+    position: relative;
+    cursor: pointer;
+    }

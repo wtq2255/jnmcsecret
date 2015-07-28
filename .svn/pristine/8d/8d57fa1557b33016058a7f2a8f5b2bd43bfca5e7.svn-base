@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>树洞招聘</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+
+<body>
+  <ul>
+  {% for job in jobs %}
+    <div class="message_job">
+        <li>
+          <form method="POST" action="/adminjobs">
+            <div class="content">
+              <input type="hidden" value="{{job.id}}" name="job_id" />
+              <strong>{{ job.id}}.&nbsp;&nbsp;</strong>
+              <h2>{{ job.title }} </h2>
+              <p class="tag">发布时间：{{ job.msg_created_at }}</p>
+              {{ job.content }} <br>
+              <p class="tag">工作地点：{{ job.area }}<br>
+              联系人：{{ job.contacts }}<br>
+              联系电话：{{ job.tel }}</p>
+            </div>
+            <input type="submit" id="delete" value="Delete" onClick="return cfm();" />
+          </form>
+        </li>
+    </div>
+  {% end %}
+  </ul>
+</body>
+</html>

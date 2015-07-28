@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>树洞招聘</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+
+<body>
+  <div class="header" align="center">
+    <h3>树洞招聘</h3>
+    <hr />
+  </div>
+<div id="contact-form" class="clearfix">
+    <h1>我要招聘!</h1>
+    <h2>哈哈，招聘信息已经发出去喽。<br>
+        要坐等大家联系你哦～～～</h2>
+    <span id="loading"></span>
+    <input type="button" value="再发布一条吧～"  id="submit-button" onClick="location.href='http://jnmcsecret.sinaapp.com/jobsentry'"/>
+    <input type="button" value="不写了，看看我发布的信息吧" id="close-button" onclick="location.href='http://jnmcsecret.sinaapp.com/jobs'"/>
+    <br><br><br>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+name: wechat_treehole
+version: 1
+
+worker: tornado

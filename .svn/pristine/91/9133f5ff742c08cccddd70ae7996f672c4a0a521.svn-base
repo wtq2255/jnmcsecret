@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>树洞招聘</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+
+<body>
+<div id="contact-form" class="clearfix">
+    <h1>我要招聘!</h1>
+    <h2>请在下方填写招聘信息～～ :)</h2>
+    <form method="post" action="/jobsentry">
+        <label for="title">标题: <span class="required">*</span></label>
+        <input type="text" id="title" name="title" placeholder="要起一个引人注目的招聘标题哦～～" value="" required="required" autofocus="autofocus" />
+        
+        <label for="contacts">联系人: <span class="required">*</span></label>
+        <input type="text" id="contacts" name="contacts" value="" required="required" />
+        
+        <label for="telephone">电话: <span class="required">*</span></label>
+        <input type="tel" id="telephone" name="telephone" value="" required="required" />
+        
+        <label for="area">工作地点: <span class="required">*</span></label>
+        <select id="area" name="enquiry" required="required">
+            <option value="济宁市">济宁市</option>
+            <option value="日照市">日照市</option>
+        </select>
+        <input type="text" id="detailedarea"name="detailedarea" value="" required="required" />
+        
+        <label for="content">招聘内容: <span class="required">*</span></label>
+        <textarea id="content" name="content" placeholder="请在此处填写招聘信息哦～～" data-minlength="20" required="required"></textarea>
+        
+        <span id="loading"></span>
+        <input type="reset" value="写错了,重来" id="submit-button" /><input type="submit" value="发布吧～" id="submit-button" />
+        <p id="req-field-desc"><span class="required">*</span> 为必填信息</p>
+    </form>
+</div>
+
+</body>
+</html>

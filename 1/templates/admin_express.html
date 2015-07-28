@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>树洞消息</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+
+<body>
+  <ul>
+  {% for msg in messages %}
+    <div class="message">
+        <li>
+          <form method="POST" action="/adminexpress">
+            <input type="hidden" value="{{msg.id}}" name="msg_id" />
+            <strong>{{ msg.id}}. </strong>
+              {{ msg.msg_content }} <br>
+              <p class="tag">{{ msg.msg_created_at }}</p>
+            <input type="submit" id="delete" value="Delete" />
+          </form>
+        </li>        
+    </div>
+  {% end %}
+  </ul>
+</body>
+</html>
